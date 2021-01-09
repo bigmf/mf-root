@@ -1,42 +1,47 @@
 const mockjs = require('mockjs')
 const Random = mockjs.Random
 
-function successWrap(data) {
-  return {
-    success: true,
-    data
-  }
-}
-function failWrap(errorCode, errorMessage) {
-  return {
-    success: false,
-    errorCode,
-    errorMessage
-  }
-}
-
 module.exports = {
   'GET /api/menus': function (req, res, u, b) {
+    const userid = req.query.userid
+    if (userid === 'anonymous') {
+      return res.status(403).json({
+        status: 'error',
+        code: 403
+      })
+    }
     const dataSource = [
       {
-        code: Random.word(6),
+        id: Random.word(6),
         name: 'Welcome',
-        icon: '',
+        icon: 'UpOutlined',
         route: '/welcome'
       },
       {
-        code: Random.word(6),
+        id: Random.word(6),
         name: '游戏',
-        icon: '',
+        icon: 'UpOutlined',
         children: [
           {
-            code: Random.word(6),
+            id: Random.word(6),
             name: '魔兽世界',
             route: '/wow'
           }
         ]
+      },
+      {
+        id: Random.word(6),
+        name: '游戏2',
+        icon: 'UpOutlined',
+        children: [
+          {
+            id: Random.word(6),
+            name: '魔兽世界2',
+            route: '/wow2'
+          }
+        ]
       }
     ]
-    res.json(successWrap(dataSource))
+    return res.json(dataSource)
   }
 }

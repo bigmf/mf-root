@@ -1,13 +1,13 @@
 export interface GlobalSetting {
-  fixedSiderBar?: boolean
-  fixedHeader?: boolean
-  visibleSiderBar?: boolean
-  visibleHeader?: boolean
+  layout?: 'sider' | 'top' | 'mix'
+  menuMode?: 'vertical' | 'horizontal' | 'inline'
+  menuTheme?: 'dark' | 'light'
 }
 
 const setting: GlobalSetting = {
-  visibleSiderBar: true,
-  visibleHeader: true
+  layout: 'sider',
+  menuMode: 'inline',
+  menuTheme: 'dark'
 }
 
 export default setting

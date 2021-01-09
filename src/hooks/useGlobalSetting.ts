@@ -44,7 +44,7 @@ function useGlobalSetting<T = Record<string, any>>(
       console.log('[MainApp] first app mounted')
     })
 
-    setDefaultMountApp('/#/login')
+    // setDefaultMountApp('/#/login')
 
     start()
   }, [])

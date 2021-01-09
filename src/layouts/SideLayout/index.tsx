@@ -1,36 +1,50 @@
-import React, { PropsWithChildren } from 'react'
-import Slot, { getSlots, WithSlot } from '../Slot'
+import React, { useState, useEffect } from 'react'
+import { Layout, Spin } from 'antd'
+import { LoadingOutlined } from '@ant-design/icons'
+import SiderBar, { SiderBarProps } from '@/components/SiderBar'
+import LayoutHeader from '@/components/Header'
+import LayoutFooter from '@/components/Footer'
+import { fetchMenu } from '@/services/menu'
+import MicroAppContainer from '@/components/MicroAppContainer'
+
+const { Header, Content, Footer, Sider } = Layout
 
 interface SideLayoutProps {
-  sider?: React.ReactNode
-  header?: React.ReactNode
-  content?: React.ReactNode
+  appLoading: boolean
 }
-/**
- * 可以作为布局layout
- * 如果不传参数
- * 也可作为微前端的挂载点
- * 但不能同时使用
- * @param props
- */
-const SideLayout: WithSlot & React.FC<PropsWithChildren<SideLayoutProps>> = (
-  props
-) => {
-  const { sider, header, content } = getSlots<SideLayoutProps>(props)
+const SideLayout: React.FC<SideLayoutProps> = ({ appLoading }) => {
+  const [menuData, setMenuData] = useState<SiderBarProps['menuData']>()
+
+  useEffect(() => {
+    fetchMenu('admin').then((res) => {
+      setMenuData(res.data)
+    })
+  }, [])
 
   return (
-    <div className="flex">
-      <div id="siderbar" className="flex-none">
-        {sider}
-      </div>
-      <div className="flex-auto">
-        <div id="header">{header}</div>
-        <div id="microapp-container">{content}</div>
-      </div>
-    </div>
+    <Layout style={{ minHeight: '100vh' }}>
+      <Sider collapsible>
+        <SiderBar.TopLogo />
+        <Spin
+          spinning={!!menuData}
+          indicator={<LoadingOutlined style={{ fontSize: 24 }} />}
+        >
+          <SiderBar menuData={menuData!}></SiderBar>
+        </Spin>
+      </Sider>
+      <Layout className="site-layout">
+        <Header>
+          <LayoutHeader />
+        </Header>
+        <Content style={{ margin: '0 16px' }}>
+          <MicroAppContainer loading={appLoading} />
+        </Content>
+        <Footer>
+          <LayoutFooter />
+        </Footer>
+      </Layout>
+    </Layout>
   )
 }
-
-SideLayout.Slot = Slot
 
 export default SideLayout
