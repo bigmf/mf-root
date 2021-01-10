@@ -6,10 +6,9 @@ module.exports = {
       theme: {
         extend: {
           colors: {
-            menu: {
-              DEFAULT: '#001529',
-              dark: '#000c17',
-              active: '#1890ff'
+            theme: {
+              light: '#fff',
+              dark: '#001529'
             }
           },
           keyframes: {

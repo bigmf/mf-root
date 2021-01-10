@@ -1,8 +1,4 @@
-export interface GlobalSetting {
-  layout?: 'sider' | 'top' | 'mix'
-  menuMode?: 'vertical' | 'horizontal' | 'inline'
-  menuTheme?: 'dark' | 'light'
-}
+import { GlobalSetting } from '../src/contexts/GlobalSettingContext'
 
 const setting: GlobalSetting = {
   layout: 'sider',

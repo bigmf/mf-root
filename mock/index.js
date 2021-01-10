@@ -13,31 +13,20 @@ module.exports = {
     const dataSource = [
       {
         id: Random.word(6),
-        name: 'Welcome',
-        icon: 'UpOutlined',
-        route: '/welcome'
-      },
-      {
-        id: Random.word(6),
-        name: '游戏',
+        name: '个人学习',
         icon: 'UpOutlined',
         children: [
           {
             id: Random.word(6),
-            name: '魔兽世界',
-            route: '/wow'
-          }
-        ]
-      },
-      {
-        id: Random.word(6),
-        name: '游戏2',
-        icon: 'UpOutlined',
-        children: [
+            name: '样例',
+            icon: 'UpOutlined',
+            route: '/demos'
+          },
           {
             id: Random.word(6),
-            name: '魔兽世界2',
-            route: '/wow2'
+            name: '组件',
+            icon: 'UpOutlined',
+            route: '/components'
           }
         ]
       }

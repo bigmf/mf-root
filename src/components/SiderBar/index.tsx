@@ -1,7 +1,6 @@
 import React from 'react'
 import { Menu } from 'antd'
 import { MenuProps } from 'antd/es/menu'
-import TopLogo from './TopLogo'
 
 const { SubMenu } = Menu
 interface MenuItem {
@@ -20,10 +19,11 @@ export interface SiderBarProps
     MenuProps,
     'mode' | 'theme' | 'defaultSelectedKeys' | 'defaultOpenKeys'
   > {
-  menuData: MenuItem[]
+  menuData?: MenuItem[]
 }
 
-function renderMenuFromData(data: MenuItem[]) {
+function renderMenuFromData(data?: MenuItem[]) {
+  if (!data) return null
   return data.map((item) => {
     const { id, name, icon, route, children } = item
 
@@ -39,23 +39,18 @@ function renderMenuFromData(data: MenuItem[]) {
   })
 }
 
-const SiderBar: WithTopLogo & React.FC<SiderBarProps> = (props) => {
+const SiderBar: React.FC<SiderBarProps> = (props) => {
   const { menuData, mode, theme, defaultSelectedKeys, defaultOpenKeys } = props
   return (
-    <div>
-      <div className="siderbar-logo"></div>
-      <Menu
-        defaultSelectedKeys={defaultSelectedKeys}
-        defaultOpenKeys={defaultOpenKeys}
-        mode={mode}
-        theme={theme}
-      >
-        {renderMenuFromData(menuData)}
-      </Menu>
-    </div>
+    <Menu
+      defaultSelectedKeys={defaultSelectedKeys}
+      defaultOpenKeys={defaultOpenKeys}
+      mode={mode}
+      theme={theme}
+    >
+      {renderMenuFromData(menuData)}
+    </Menu>
   )
 }
 
 export default SiderBar
-
-SiderBar.TopLogo = TopLogo

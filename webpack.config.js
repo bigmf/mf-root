@@ -6,20 +6,22 @@ const ModuleFederationPlugin = require('webpack').container
   .ModuleFederationPlugin
 
 module.exports = {
-  entry: './src/index',
   mode: 'development',
+  target: 'web',
+  entry: './src/index',
+  output: {
+    filename: '[name].bundle.js',
+    path: path.join(__dirname, 'dist'),
+    publicPath: 'auto'
+  },
   devtool: 'inline-source-map',
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     port: 3001,
-    open: true,
+    // open: true,
     before(app) {
       apiMocker(app, path.resolve('./mock/index.js'))
     }
-  },
-  output: {
-    path: path.join(__dirname, 'dist'),
-    publicPath: 'auto'
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
@@ -30,19 +32,15 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/,
-        options: {
-          presets: ['@babel/preset-env']
-        }
-      },
-      {
         test: /\.tsx?$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
         options: {
-          presets: ['@babel/preset-react', '@babel/preset-typescript']
+          presets: [
+            '@babel/preset-env',
+            '@babel/preset-react',
+            '@babel/preset-typescript'
+          ]
         }
       },
       {

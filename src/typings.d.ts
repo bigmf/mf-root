@@ -47,3 +47,8 @@ interface AnyAction<T = any> {
   type: T
   [extraProps: string]: any
 }
+
+interface classAndStyleProps {
+  className?: string
+  style?: React.CSSProperties
+}
