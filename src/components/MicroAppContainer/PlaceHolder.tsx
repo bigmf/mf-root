@@ -22,7 +22,7 @@ const PlaceHolder: React.FC<PlaceHolderProps> = (props) => {
     })
   )
 
-  return <div className="text-center">{places}</div>
+  return <div className="text-center p-4">{places}</div>
 }
 
 export default PlaceHolder

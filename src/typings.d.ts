@@ -27,6 +27,7 @@ interface Window {
     fieldsObject: GAFieldsObject | string
   ) => void
   reloadAuthorized: () => void
+  qiankunStarted: boolean
 }
 
 declare let ga: Function

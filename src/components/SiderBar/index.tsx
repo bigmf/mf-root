@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Menu } from 'antd'
+import { Link, useLocation } from 'react-router-dom'
 import { MenuProps } from 'antd/es/menu'
 
 const { SubMenu } = Menu
@@ -25,7 +26,7 @@ export interface SiderBarProps
 function renderMenuFromData(data?: MenuItem[]) {
   if (!data) return null
   return data.map((item) => {
-    const { id, name, icon, route, children } = item
+    const { id, name, icon, route = '/', children } = item
 
     if (children) {
       return (
@@ -34,17 +35,29 @@ function renderMenuFromData(data?: MenuItem[]) {
         </SubMenu>
       )
     } else {
-      return <Menu.Item key={id}>{name}</Menu.Item>
+      return (
+        <Menu.Item key={id}>
+          <Link to={route}>{name}</Link>
+        </Menu.Item>
+      )
     }
   })
 }
 
 const SiderBar: React.FC<SiderBarProps> = (props) => {
   const { menuData, mode, theme, defaultSelectedKeys, defaultOpenKeys } = props
+  const location = useLocation()
+  const selectedKey = useMemo(() => {
+    const snippetPaths = location.pathname.split('/')
+    return snippetPaths.length > 0 ? snippetPaths[snippetPaths.length - 1] : ''
+  }, [location.pathname])
+
   return (
     <Menu
       defaultSelectedKeys={defaultSelectedKeys}
       defaultOpenKeys={defaultOpenKeys}
+      openKeys={['vue', 'react']}
+      selectedKeys={[selectedKey]}
       mode={mode}
       theme={theme}
     >

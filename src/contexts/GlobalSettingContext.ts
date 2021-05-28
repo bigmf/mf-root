@@ -4,6 +4,7 @@ export interface GlobalSetting {
   layout?: 'sider' | 'top' | 'mix'
   menuMode?: 'vertical' | 'horizontal' | 'inline'
   menuTheme?: 'dark' | 'light'
+  currentUser?: any
 }
 
 export const defaultSetting: GlobalSetting = {

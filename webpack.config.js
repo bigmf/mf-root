@@ -12,10 +12,11 @@ module.exports = {
   output: {
     filename: '[name].bundle.js',
     path: path.join(__dirname, 'dist'),
-    publicPath: 'auto'
+    publicPath: '/'
   },
   devtool: 'inline-source-map',
   devServer: {
+    historyApiFallback: true,
     contentBase: path.join(__dirname, 'dist'),
     port: 3001,
     // open: true,

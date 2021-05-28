@@ -25,20 +25,44 @@ function useGlobalSetting<T = Record<string, any>>(
           ...value
         }
       })
-    })
+    }, true)
 
     const loader = (loading: boolean) => setLoading(loading)
 
-    registerMicroApps([
+    registerMicroApps(
+      [
+        {
+          name: 'passport-app', // app name registered
+          entry: '//localhost:3002',
+          container: '#microapp-passport-container',
+          activeRule: '/passport',
+          loader,
+          props: {
+            data: {}
+          }
+        },
+        {
+          name: 'vue-app',
+          entry: '//localhost:3003',
+          container: '#microapp-vue-container',
+          activeRule: '/dashboard/vue',
+          loader,
+          props: {}
+        },
+        {
+          name: 'react-app',
+          entry: '//localhost:3004',
+          container: '#microapp-react-container',
+          activeRule: '/dashboard/react',
+          loader,
+          props: {}
+        }
+      ],
       {
-        name: 'auth-app', // app name registered
-        entry: '//localhost:3002',
-        container: '#microapp-container',
-        activeRule: '/#/login',
-        loader,
-        props: {}
+        // @ts-ignore
+        // afterMount: (app) => setGlobalState(setting)
       }
-    ])
+    )
 
     runAfterFirstMounted(() => {
       console.log('[MainApp] first app mounted')
@@ -46,7 +70,7 @@ function useGlobalSetting<T = Record<string, any>>(
 
     // setDefaultMountApp('/#/login')
 
-    start()
+    // start({ prefetch: ['vue-app', 'react-app'] })
   }, [])
 
   return [setting, loading]

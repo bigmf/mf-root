@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Layout, Spin } from 'antd'
+import { Switch, Route, Link, useParams, useRouteMatch } from 'react-router-dom'
 import { LoadingOutlined } from '@ant-design/icons'
 import SiderBar from '@/components/SiderBar'
 import LayoutHeader from '@/components/Header'
@@ -19,6 +20,7 @@ const SideLayout: React.FC<SideLayoutProps> = ({ appLoading }) => {
   const [menuData] = useFetchMenuData()
   const globalSetting = useContext(GlobalSettingContext)
   const { menuTheme, menuMode } = globalSetting
+  const { path, url } = useRouteMatch()
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -40,7 +42,20 @@ const SideLayout: React.FC<SideLayoutProps> = ({ appLoading }) => {
           <LayoutHeader userbar={<UserBar />} />
         </Header>
         <Content style={{ margin: '24px' }}>
-          <MicroAppContainer loading={appLoading} />
+          <Switch>
+            <Route path={`${path}/vue`}>
+              <MicroAppContainer
+                loading={appLoading}
+                mountElementId="microapp-vue-container"
+              />
+            </Route>
+            <Route path={`${path}/react`}>
+              <MicroAppContainer
+                loading={appLoading}
+                mountElementId="microapp-react-container"
+              />
+            </Route>
+          </Switch>
         </Content>
         <Footer>
           <LayoutFooter />

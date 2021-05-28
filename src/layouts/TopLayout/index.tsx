@@ -12,11 +12,11 @@ import MicroAppContainer from '@/components/MicroAppContainer'
 
 const { Header, Content, Footer, Sider } = Layout
 
-interface SideLayoutProps {
+interface TopLayoutProps {
   appLoading: boolean
 }
 
-const TopLayout: React.FC<SideLayoutProps> = ({ appLoading }) => {
+const TopLayout: React.FC<TopLayoutProps> = ({ appLoading }) => {
   const [menuData] = useFetchMenuData()
   const globalSetting = useContext(GlobalSettingContext)
   const { menuTheme, menuMode } = globalSetting
@@ -37,7 +37,10 @@ const TopLayout: React.FC<SideLayoutProps> = ({ appLoading }) => {
         />
       </Header>
       <Content style={{ margin: '24px' }}>
-        <MicroAppContainer loading={appLoading} />
+        <MicroAppContainer
+          loading={appLoading}
+          mountElementId="microapp-vue-container"
+        />
       </Content>
       <Footer>
         <LayoutFooter />

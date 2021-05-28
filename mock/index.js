@@ -12,21 +12,22 @@ module.exports = {
     }
     const dataSource = [
       {
-        id: Random.word(6),
-        name: '个人学习',
+        // id: Random.word(6),
+        id: 'vue',
+        name: '子应用-Vue',
         icon: 'UpOutlined',
         children: [
           {
-            id: Random.word(6),
-            name: '样例',
+            id: 'welcome',
+            name: 'Welcome',
             icon: 'UpOutlined',
-            route: '/demos'
+            route: '/dashboard/vue/welcome'
           },
           {
-            id: Random.word(6),
-            name: '组件',
+            id: 'baidumap',
+            name: '百度地图',
             icon: 'UpOutlined',
-            route: '/components'
+            route: '/dashboard/vue/baidumap'
           }
         ]
       }
