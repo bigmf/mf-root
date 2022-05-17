@@ -18,7 +18,7 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     contentBase: path.join(__dirname, 'dist'),
-    port: 3001,
+    port: 8001,
     // open: true,
     before(app) {
       apiMocker(app, path.resolve('./mock/index.js'))
